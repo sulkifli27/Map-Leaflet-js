@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Peta</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+    <script src="https://unpkg.com/leaflet-geosearch@3.1.0/dist/geosearch.umd.js"></script>
+    <style>
+        #leafletMap-registration {
+            height: 400px;
+            /* The height is 400 pixels */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="leafletMap-registration"></div>
+</body>
+
+</html>
+
+
+<script>
+    // you want to get it of the window global
+    const providerOSM = new GeoSearch.OpenStreetMapProvider();
+
+    //leaflet map
+    var leafletMap = L.map('leafletMap-registration', {
+    fullscreenControl: true,
+    // OR
+    fullscreenControl: {
+        pseudoFullscreen: false // if true, fullscreen to page width and height
+    },
+    minZoom: 2
+    }).setView([0,0], 2);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(leafletMap);
+
+    const search = new GeoSearch.GeoSearchControl({
+        provider: providerOSM,
+        style: 'bar',
+        searchLabel: 'Sinjai',
+    });
+
+    leafletMap.addControl(search);
+</script>
